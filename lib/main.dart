@@ -1,4 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:io/io.dart';
+import 'package:audioplayer/audioplayer.dart';
 
 void main() => runApp(new MyApp());
 
@@ -43,30 +49,101 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _result = 0;
-  final TextEditingController eins = new TextEditingController(text: "0");
-  final TextEditingController zwei = new TextEditingController(text: "0");
+  String Gleichung = "";
+  num Ergebnis;
 
   void add(){
     setState((){
-      _result = int.parse(eins.text) + int.parse(zwei.text);
+      Gleichung += "+";
     });
   }
   void sub(){
     setState((){
-      _result = int.parse(eins.text) - int.parse(zwei.text);
+      Gleichung += "-";
     });
   }
   void mul(){
     setState((){
-      _result = int.parse(eins.text) * int.parse(zwei.text);
+      Gleichung += "*";
     });
   }
   void div(){
     setState((){
-      _result = int.parse(eins.text) ~/ int.parse(zwei.text);
+      Gleichung += "/";
+    });
+
+  }
+  playLocal() async {
+    AudioPlayer audioPlayer = new AudioPlayer();
+    final file = new File('${(await getTemporaryDirectory()).path}/quick.mp3');
+    await file.writeAsBytes((await playLocal()).buffer.asUint8List());
+    final result = await audioPlayer.play(file.path,isLocal: true);
+  }
+
+  void eval()async {
+    setState((){
+      Parser p = new Parser();
+      Expression exp = p.parse(Gleichung);
+     Ergebnis = exp.evaluate(EvaluationType.REAL,new ContextModel());
+     playLocal();
+     });
+
+  }
+  void nol(){
+    setState((){
+      Gleichung += "0";
     });
   }
+  void eins(){
+    setState((){
+      Gleichung += "1";
+    });
+  }
+  void zwei(){
+    setState((){
+      Gleichung += "2";
+    });
+  }
+  void drei(){
+    setState((){
+      Gleichung += "3";
+    });
+  }
+  void vier(){
+    setState((){
+      Gleichung += "4";
+    });
+  }
+  void fuenf(){
+    setState((){
+      Gleichung += "5";
+    });
+  }
+
+  void sechs(){
+    setState((){
+      Gleichung += "6";
+    });
+  }
+
+  void sieben(){
+    setState((){
+      Gleichung += "7";
+    });
+  }
+  void acht(){
+    setState((){
+      Gleichung += "8";
+    });
+  }
+
+  void neun(){
+    setState((){
+      Gleichung += "9";
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -98,20 +175,15 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
+
+
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
             new Text(
-              'Result: $_result',
+              '$Gleichung',
             ),
-            new TextField(
-            keyboardType: TextInputType.number, decoration: new InputDecoration(hintText: "first Number"),
-        controller: eins,
-            ),
-
-            new TextField(
-                keyboardType: TextInputType.number, decoration: new InputDecoration(hintText: "second Number"),
-                controller: zwei,
+            new Text(
+              'Result: $Ergebnis',
             ),
             new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
       new RaisedButton(
@@ -133,6 +205,68 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: div),
 
             ]),
+            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              new RaisedButton(
+                  child: new Text('7', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: sieben ),
+
+              new RaisedButton(
+                  child: new Text('8', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: acht),
+              new RaisedButton(
+                  child: new Text('9', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: neun),
+
+            ]),
+            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              new RaisedButton(
+                  child: new Text('4', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: vier ),
+
+              new RaisedButton(
+                  child: new Text('5', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: fuenf),
+              new RaisedButton(
+                  child: new Text('6', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: sechs),
+
+            ]),
+            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              new RaisedButton(
+                  child: new Text('1', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: eins ),
+
+              new RaisedButton(
+                  child: new Text('2', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: zwei),
+              new RaisedButton(
+                  child: new Text('3', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: drei),
+
+            ]),
+            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              new RaisedButton(
+                  child: new Text('0', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: mul ),
+              new RaisedButton(
+                  child: new Text('=', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: eval ),
+
+            ]),
+            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              new RaisedButton(
+                  child: new Text('C', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: (){setState((){
+                    Gleichung = Gleichung.substring(1);
+                  });} ),
+              new RaisedButton(
+                  child: new Text('CE', style: new TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: (){setState((){
+                    Gleichung = "";
+                  });} ),
+
+            ]),
+
 
           ],
         ),
