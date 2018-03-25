@@ -50,7 +50,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String Gleichung = "";
-  num Ergebnis;
+  num Ergebnis = 0;
 
   void add(){
     setState((){
@@ -263,6 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: new Text('CE', style: new TextStyle(fontWeight: FontWeight.bold)),
                   onPressed: (){setState((){
                     Gleichung = "";
+                    Ergebnis = 0;
                   });} ),
 
             ]),
