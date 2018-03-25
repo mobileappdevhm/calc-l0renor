@@ -52,97 +52,105 @@ class _MyHomePageState extends State<MyHomePage> {
   String Gleichung = "";
   num Ergebnis = 0;
 
-  void add(){
-    setState((){
+  void add() {
+    setState(() {
       Gleichung += "+";
     });
   }
-  void sub(){
-    setState((){
+
+  void sub() {
+    setState(() {
       Gleichung += "-";
     });
   }
-  void mul(){
-    setState((){
+
+  void mul() {
+    setState(() {
       Gleichung += "*";
     });
   }
-  void div(){
-    setState((){
+
+  void div() {
+    setState(() {
       Gleichung += "/";
     });
-
   }
+
   playLocal() async {
     AudioPlayer audioPlayer = new AudioPlayer();
     final file = new File('${(await getTemporaryDirectory()).path}/quick.mp3');
     await file.writeAsBytes((await playLocal()).buffer.asUint8List());
-    final result = await audioPlayer.play(file.path,isLocal: true);
+    final result = await audioPlayer.play(file.path, isLocal: true);
   }
 
-  void eval()async {
-    setState((){
+  void eval() async {
+    setState(() {
       Parser p = new Parser();
       Expression exp = p.parse(Gleichung);
-     Ergebnis = exp.evaluate(EvaluationType.REAL,new ContextModel());
-     playLocal();
-     });
-
+      Ergebnis = exp.evaluate(EvaluationType.REAL, new ContextModel());
+      playLocal();
+    });
   }
-  void nol(){
-    setState((){
+
+  void nol() {
+    setState(() {
       Gleichung += "0";
     });
   }
-  void eins(){
-    setState((){
+
+  void eins() {
+    setState(() {
       Gleichung += "1";
     });
   }
-  void zwei(){
-    setState((){
+
+  void zwei() {
+    setState(() {
       Gleichung += "2";
     });
   }
-  void drei(){
-    setState((){
+
+  void drei() {
+    setState(() {
       Gleichung += "3";
     });
   }
-  void vier(){
-    setState((){
+
+  void vier() {
+    setState(() {
       Gleichung += "4";
     });
   }
-  void fuenf(){
-    setState((){
+
+  void fuenf() {
+    setState(() {
       Gleichung += "5";
     });
   }
 
-  void sechs(){
-    setState((){
+  void sechs() {
+    setState(() {
       Gleichung += "6";
     });
   }
 
-  void sieben(){
-    setState((){
+  void sieben() {
+    setState(() {
       Gleichung += "7";
     });
   }
-  void acht(){
-    setState((){
+
+  void acht() {
+    setState(() {
       Gleichung += "8";
     });
   }
 
-  void neun(){
-    setState((){
+  void neun() {
+    setState(() {
       Gleichung += "9";
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +184,6 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
 
-
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Text(
@@ -185,90 +192,111 @@ class _MyHomePageState extends State<MyHomePage> {
             new Text(
               'Result: $Ergebnis',
             ),
-            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-      new RaisedButton(
-      child: new Text('+', style: new TextStyle(fontWeight: FontWeight.bold)),
-      onPressed: add ),
-
-      new RaisedButton(
-      child: new Text('-', style: new TextStyle(fontWeight: FontWeight.bold)),
-      onPressed: sub),
-
-  ]),
-            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              new RaisedButton(
-                  child: new Text('*', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: mul ),
-
-              new RaisedButton(
-                  child: new Text('/', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: div),
-
-            ]),
-            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              new RaisedButton(
-                  child: new Text('7', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: sieben ),
-
-              new RaisedButton(
-                  child: new Text('8', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: acht),
-              new RaisedButton(
-                  child: new Text('9', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: neun),
-
-            ]),
-            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              new RaisedButton(
-                  child: new Text('4', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: vier ),
-
-              new RaisedButton(
-                  child: new Text('5', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: fuenf),
-              new RaisedButton(
-                  child: new Text('6', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: sechs),
-
-            ]),
-            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              new RaisedButton(
-                  child: new Text('1', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: eins ),
-
-              new RaisedButton(
-                  child: new Text('2', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: zwei),
-              new RaisedButton(
-                  child: new Text('3', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: drei),
-
-            ]),
-            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              new RaisedButton(
-                  child: new Text('0', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: mul ),
-              new RaisedButton(
-                  child: new Text('=', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: eval ),
-
-            ]),
-            new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              new RaisedButton(
-                  child: new Text('C', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: (){setState((){
-                    Gleichung = Gleichung.substring(1);
-                  });} ),
-              new RaisedButton(
-                  child: new Text('CE', style: new TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: (){setState((){
-                    Gleichung = "";
-                    Ergebnis = 0;
-                  });} ),
-
-            ]),
-
-
+            new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new RaisedButton(
+                      child: new Text('+',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: add),
+                  new RaisedButton(
+                      child: new Text('-',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: sub),
+                ]),
+            new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new RaisedButton(
+                      child: new Text('*',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: mul),
+                  new RaisedButton(
+                      child: new Text('/',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: div),
+                ]),
+            new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new RaisedButton(
+                      child: new Text('7',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: sieben),
+                  new RaisedButton(
+                      child: new Text('8',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: acht),
+                  new RaisedButton(
+                      child: new Text('9',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: neun),
+                ]),
+            new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new RaisedButton(
+                      child: new Text('4',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: vier),
+                  new RaisedButton(
+                      child: new Text('5',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: fuenf),
+                  new RaisedButton(
+                      child: new Text('6',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: sechs),
+                ]),
+            new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new RaisedButton(
+                      child: new Text('1',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: eins),
+                  new RaisedButton(
+                      child: new Text('2',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: zwei),
+                  new RaisedButton(
+                      child: new Text('3',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: drei),
+                ]),
+            new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new RaisedButton(
+                      child: new Text('0',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: mul),
+                  new RaisedButton(
+                      child: new Text('=',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: eval),
+                ]),
+            new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new RaisedButton(
+                      child: new Text('C',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: () {
+                        setState(() {
+                          Gleichung = Gleichung.substring(1);
+                        });
+                      }),
+                  new RaisedButton(
+                      child: new Text('CE',
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: () {
+                        setState(() {
+                          Gleichung = "";
+                          Ergebnis = 0;
+                        });
+                      }),
+                ]),
           ],
         ),
       ),
@@ -276,4 +304,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-//komm
